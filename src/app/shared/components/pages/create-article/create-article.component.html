@@ -1,0 +1,31 @@
+<div class="button-container" style="position: relative;">
+    <app-input-molecule 
+      [nameLabel]="'Category Name'" 
+      [descLabel]="'Category Description'"
+      [(name)]="name"
+      [(description)]="description"
+      (nameChange)="onNameChange($event)" 
+      (descriptionChange)="onDescriptionChange($event)">
+    </app-input-molecule>
+    <app-button 
+      buttonText="Create Category" 
+      [position]="{ top: '300px', left: '600px' }"
+      (buttonClick)="onCreateCategory()">
+    </app-button>
+  
+    <div *ngIf="successMessage" style="color: green; position: absolute; top: 260px; left: 590px;">
+      <p>{{ successMessage }}</p>
+    </div>
+  
+    <div *ngIf="errorMessageNombre" style="color: red; position: absolute; top: 160px; left: 600px;">
+      <p>{{ errorMessageNombre }}</p>
+    </div>
+  
+    <div *ngIf="errorMessageDescripcion" style="color: red; position: absolute; top: 250px; left: 590px;">
+      <p>{{ errorMessageDescripcion }}</p>
+    </div>
+  
+    <div *ngIf="respuestaApi">
+      <p>Respuesta: {{ respuestaApi | json }}</p>
+    </div>
+  </div>

@@ -1,0 +1,14 @@
+@import '/src/styles/styles.scss';
+
+.header {
+    background-color: #6A17AB; 
+    padding: 30px; 
+    text-align: left; 
+  }
+  label{
+    @extend .h1-style;
+  }
+  .header-title {
+    color: rgb(0, 0, 0);
+    margin: 0; 
+  }

@@ -1,0 +1,28 @@
+@import '/src/styles/styles.scss';
+
+.input-container {
+    position: relative;  
+    display: flex;      
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center; 
+  }
+  
+
+  label{
+    @extend .h2-style;
+    margin-bottom: 0px;
+    text-align: center;
+  }
+  
+  .custom-input {
+    width: 100%; 
+    padding: 10px;
+    text-align: center;
+    font-size: 15px;
+       &:focus {
+        border-color: #9D3FE7; 
+        outline: none;
+      }
+    }
+  
