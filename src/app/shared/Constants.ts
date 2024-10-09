@@ -1,0 +1,9 @@
+export const URL_CREATE_CATEGORI= 'http://localhost:7070/category/add';
+export const CATEGORY_ADD_SUCESS="Category created successfully";
+export const TIME_OUT='TimeoutError';
+export const SERVICE_UNAVAILABLE="Service unavailable.";
+export const NAME='name';
+export const DESCRIPTION='description';
+export const SHOW_CREATE='should create';
+export const ZERO=0;
+export const TIME_OUT_NUM=4000;

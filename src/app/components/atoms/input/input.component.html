@@ -1,13 +1,16 @@
-
 <div class="input-container" 
      [ngStyle]="{ 'top': position.top, 'left': position.left }">
-  <label>{{ label }}</label>
+  <label>{{ label }}
+    <span *ngIf="required" class="required-marker">*</span>
+  </label>
   <input 
     type="text" 
     [placeholder]="placeholder" 
-    [(ngModel)]="value" 
-    (ngModelChange)="onInputChange($event)"
+    [ngModel]="value"
+    (ngModelChange)="value = $event"
     class="custom-input"
     [ngStyle]="{ 'width': width }"
+    [disabled]="disabled"
+    [attr.required]="required"
   />
 </div>

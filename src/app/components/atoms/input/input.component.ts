@@ -1,6 +1,5 @@
 import { Component, Input, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-input',
@@ -19,12 +18,14 @@ export class InputComponent implements ControlValueAccessor {
   @Input() placeholder: string = '';
   @Input() position: { top?: string, left?: string } = {};
   @Input() width: string = '100%';
+  @Input() formControl?: FormControl;
+  @Input() required: boolean = false;
 
   private _value: string = '';
-  onChange: any = () => {};
-  onTouched: any = () => {};
+  disabled: boolean = false;
 
-  constructor(private router: Router) {}
+  onChange: (value: string) => void = () => {};
+  onTouched: () => void = () => {};
 
   get value(): string {
     return this._value;
@@ -32,22 +33,27 @@ export class InputComponent implements ControlValueAccessor {
 
   set value(val: string) {
     this._value = val;
-    this.onChange(this._value);
+    this.onChange(val);
     this.onTouched();
-  }
-
-  writeValue(value: string): void {
-    if (value !== undefined) {
-      this._value = value;
+    if (this.formControl && !this.required) {
+      this.formControl.setErrors(null);
     }
   }
 
-  registerOnChange(fn: any): void {
+  writeValue(value: string): void {
+    this._value = value;
+  }
+
+  registerOnChange(fn: (value: string) => void): void {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: any): void {
+  registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
   }
 
   onInputChange(event: Event): void {
@@ -55,7 +61,13 @@ export class InputComponent implements ControlValueAccessor {
     this.value = input.value;
   }
 
-  navegar(direction: string): void {
-    this.router.navigate([direction]);
+  ngOnInit() {
+    if (this.formControl) {
+      this.formControl.valueChanges.subscribe(value => {
+        if (value !== this._value) {
+          this._value = value;
+        }
+      });
+    }
   }
 }

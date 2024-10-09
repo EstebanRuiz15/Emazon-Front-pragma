@@ -1,9 +1,0 @@
-<button class="custom-button"
-        (mouseover)="hover = true" (mouseleave)="hover = false" 
-        [ngStyle]="{'background-color': hover ? '#AE60EB' : buttonColor,
-        'position': 'absolute', 
-        'top': position.top, 
-        'left': position.left}" 
-        (click)="handleClick()" >
-  {{ buttonText }}
-</button>

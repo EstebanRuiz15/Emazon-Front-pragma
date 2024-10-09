@@ -1,0 +1,10 @@
+<button 
+  class="custom-button"
+  [attr.type]="type"
+  [disabled]="disabled"
+  (mouseover)="onMouseOver()" 
+  (mouseleave)="onMouseLeave()"
+  [ngStyle]="buttonStyle"
+  (click)="handleClick()">
+  {{ buttonText }}
+</button>

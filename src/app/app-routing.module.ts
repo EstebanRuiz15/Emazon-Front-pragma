@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { CreateArticleComponent } from './shared/components/pages/create-article/create-article.component';
 
 const routes: Routes = [{
-  path: 'create-article',
-    loadChildren: () => import('./shared/components/pages/create-article/create-articles.module').then(m => m.CreateArticleModule)
+  path: 'create-category',
+    loadChildren: () => import('./components/pages/create-categoryy/create-category.module').then(m => m.CreateCategoryModule)
   
 }
 ];
