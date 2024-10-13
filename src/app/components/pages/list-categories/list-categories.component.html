@@ -1,0 +1,24 @@
+<div class="table-container">
+  <h2 class="title">Categories</h2>
+  <div class="page-size-select">
+    <label for="pageSize">Page Size:</label>
+    <select id="pageSize" (change)="onPageSizeChange($event)">
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="15">15</option>
+      <option value="20">20</option>
+    </select>
+  </div>
+
+  <app-table
+    [config]="tableConfig"
+    [data]="categories"
+    [pagination]="pagination"
+    [sortField]="sortField"
+    [sortOrder]="sortOrder"
+    [customWidth]="'100%'"
+    [customClass]="'extra-class'"
+    (pageChange)="onPageChange($event)"
+    (sortChange)="onSortChange($event)">
+  </app-table>
+</div>
