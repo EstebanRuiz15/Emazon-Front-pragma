@@ -1,0 +1,113 @@
+@import '/src/app/shared/styles/styles.scss';
+
+.header {
+  background-color: #6A17AB;
+  padding: 10px;
+  display: flex; 
+  align-items: center;
+  justify-content: space-between; 
+  z-index: 100;
+  box-shadow: 0 8px 8px rgba(181, 58, 219, 0.466);
+  box-sizing: border-box;
+  width: 100%;
+
+  .nav-menu {
+    flex-grow: 1; /* Permite que la nav-menu ocupe el espacio disponible */
+    display: flex; /* Asegúrate de que se comporte como un contenedor flex */
+    justify-content: flex-start;
+    
+    .menu {
+      list-style: none;
+      padding: 0;
+      margin-left: 25px;
+      display: flex; 
+      
+      .menu-item {
+        position: relative;
+        margin-top: 20px;
+        margin-right: 20px;
+        cursor: pointer;
+        color: white;
+        display: flex;
+        align-items: center; 
+        z-index: 102;
+        
+        i {
+          margin-left: 5px; 
+          color: #f5f3f3a6;
+        }
+
+        a {
+          color: white;
+          text-decoration: none;
+        }
+
+        .dropdown {
+          display: none;
+          position: absolute;
+          background-color: #ffffffc5;
+          color: #000;
+          padding: 10px;
+          top: 100%;
+          min-width: auto;
+          white-space: nowrap;
+          left: 0;
+          list-style: none;
+          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+          z-index: 101;
+          border-radius: 4px;
+
+          .dropdown-item {
+            margin: 8px 0;
+            
+            a {
+              text-decoration: none;
+              color: #6A17AB;
+            }
+
+            a:hover {
+              color: #9736aac5;
+            }
+          }
+        }
+
+        .dropdown.show {
+          display: block;
+        }
+      }
+    }
+  }
+
+  .logo {
+    height: 60px; 
+    width: auto;
+    margin-right: 15px; 
+    object-fit: contain; 
+  }
+  .profile-icon {
+    margin-right: 10px;
+    font-size: 35px; 
+    color: #000; 
+    cursor: pointer; 
+  }
+  
+}
+
+
+.overlay {
+  position: fixed;
+  margin-top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.384);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 10; 
+}
+
+.overlay.active {
+  opacity: 1;
+  visibility: visible; 
+}

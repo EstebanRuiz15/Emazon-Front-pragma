@@ -8,66 +8,108 @@ describe('InputComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FormsModule, ReactiveFormsModule],
-      declarations: [InputComponent],
-    }).compileComponents();
+      declarations: [ InputComponent ],
+      imports: [ FormsModule, ReactiveFormsModule ]
+    })
+    .compileComponents();
+  });
 
+  beforeEach(() => {
     fixture = TestBed.createComponent(InputComponent);
     component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have a default label', () => {
+  it('should have default values', () => {
     expect(component.label).toBe('');
+    expect(component.placeholder).toBe('');
+    expect(component.position).toEqual({});
+    expect(component.width).toBe('100%');
+    expect(component.required).toBeFalsy();
+    expect(component.disabled).toBeFalsy();
   });
 
-  it('should set the value correctly', () => {
-    const testValue = 'Test value';
+  it('should set and get value correctly', () => {
+    const testValue = 'test value';
     component.value = testValue;
     expect(component.value).toBe(testValue);
   });
 
-  it('should call onChange and onTouched when the value is set', () => {
+  it('should call onChange and onTouched when value is set', () => {
     const onChangeSpy = jest.spyOn(component, 'onChange');
     const onTouchedSpy = jest.spyOn(component, 'onTouched');
-    
-    component.value = 'New value';
-    
-    expect(onChangeSpy).toHaveBeenCalledWith('New value');
+    component.value = 'new value';
+    expect(onChangeSpy).toHaveBeenCalledWith('new value');
     expect(onTouchedSpy).toHaveBeenCalled();
   });
 
-  it('should write the value', () => {
-    const testValue = 'Test write value';
+  it('should implement ControlValueAccessor methods', () => {
+    const testValue = 'test value';
+    const changeFn = jest.fn();
+    const touchedFn = jest.fn();
+
     component.writeValue(testValue);
     expect(component.value).toBe(testValue);
+
+    component.registerOnChange(changeFn);
+    component.registerOnTouched(touchedFn);
+
+    component.value = 'new value';
+    expect(changeFn).toHaveBeenCalledWith('new value');
+    expect(touchedFn).toHaveBeenCalled();
+
+    component.setDisabledState(true);
+    expect(component.disabled).toBeTruthy();
   });
 
-  it('should register onChange callback', () => {
-    const callback = jest.fn();
-    component.registerOnChange(callback);
-    component.value = 'New value';
-    
-    expect(callback).toHaveBeenCalledWith('New value');
+  it('should handle input change event', () => {
+    const event = { target: { value: 'new input value' } } as any;
+    component.onInputChange(event);
+    expect(component.value).toBe('new input value');
   });
 
-  it('should register onTouched callback', () => {
-    const callback = jest.fn();
-    component.registerOnTouched(callback);
-    component.onTouched();
-    
-    expect(callback).toHaveBeenCalled();
-  });
-
-  it('should update formControl value when ngOnInit is called', () => {
+  it('should clear formControl errors when value changes and not required', () => {
     const formControl = new FormControl('');
+    component.formControl = formControl;
+    component.required = false;
+
+    formControl.setErrors({ required: true });
+    component.value = 'new value';
+
+    expect(formControl.errors).toBeNull();
+  });
+
+  it('should not clear formControl errors when required', () => {
+    const formControl = new FormControl('');
+    component.formControl = formControl;
+    component.required = true;
+
+    formControl.setErrors({ required: true });
+    component.value = 'new value';
+
+    expect(formControl.errors).not.toBeNull();
+  });
+
+  it('should subscribe to formControl value changes', () => {
+    const formControl = new FormControl('initial');
     component.formControl = formControl;
     component.ngOnInit();
 
-    formControl.setValue('Form Control Value');
-    expect(component.value).toBe('Form Control Value');
+    formControl.setValue('updated value');
+    expect(component.value).toBe('updated value');
+  });
+
+  it('should not update value if formControl value is the same', () => {
+    const formControl = new FormControl('same value');
+    component.formControl = formControl;
+    component.ngOnInit();
+
+    const previousValue = component.value;
+    formControl.setValue('same value');
+    expect('same value');
   });
 });

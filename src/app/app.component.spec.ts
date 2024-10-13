@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './components/molecules/header/header.component'; 
+import { HeaderComponent } from './components/header/header.component'; 
 import { RouterTestingModule } from '@angular/router/testing'; 
 
 describe('AppComponent', () => {

@@ -1,0 +1,26 @@
+<header class="header">
+    <img src="../../../assets/images/emaz log.png" alt="Logo" class="logo">
+  
+    <nav class="nav-menu">
+      <ul class="menu">
+        <li class="menu-item" (mouseenter)="toggleDropdown('category')" (mouseleave)="toggleDropdown('')"> 
+          Categories <i class="fas fa-chevron-down"></i> 
+          <ul class="dropdown" [class.show]="activeDropdown === 'category'">
+            <li class="dropdown-item"><a [routerLink]="['create-category']">Create Category</a></li>
+            <li class="dropdown-item"><a [routerLink]="['list-categories']">See all categories</a></li>
+          </ul>
+        </li>
+        <li class="menu-item" (mouseenter)="toggleDropdown('brands')" (mouseleave)="toggleDropdown('')">
+          Brands <i class="fas fa-chevron-down"></i> 
+          <ul class="dropdown" [class.show]="activeDropdown === 'brands'">
+            <li class="dropdown-item"><a [routerLink]="['create/brand']">Create brands</a></li>
+            <li class="dropdown-item"><a [routerLink]="['list/brands']">See all brands</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <div class="profile-icon">
+        <i class="fas fa-user-circle"></i>
+    </div>
+  </header>
+  <div class="overlay" [class.active]="activeDropdown !== ''"></div>

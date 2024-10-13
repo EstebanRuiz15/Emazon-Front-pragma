@@ -1,0 +1,47 @@
+<div class="wrapper-container">
+  <div class="content-container">
+    <h2 class="title" *ngIf="title">{{ title }}</h2>
+    <form [formGroup]="articleForm" (ngSubmit)="onSubmit()" class="container-form">
+      <div class="input-wrapper">
+        <app-input 
+          [label]="nameLabel" 
+          [placeholder]="namePlace" 
+          [formControl]="nameControl"
+          [required]="true"
+          [width]="'100%'"
+          class="input-cont">
+        </app-input>
+        <div class="error-container">
+          <div *ngIf="nameControl.invalid && (nameControl.dirty || nameControl.touched)" class="error-message">
+            {{ getNameErrorMessage() }}
+          </div>
+          <div *ngIf="!(nameControl.invalid && (nameControl.dirty || nameControl.touched))" class="error-placeholder"></div>
+        </div>
+      </div>
+
+      <div class="input-wrapper">
+        <app-input 
+          [label]="descLabel" 
+          [placeholder]="namePlace2"
+          [formControl]="descriptionControl"
+          [required]="true"
+          [width]="'100%'"
+          class="input-cont">
+        </app-input>
+        <div class="error-container">
+          <div *ngIf="descriptionControl.invalid && (descriptionControl.dirty || descriptionControl.touched)" class="error-message">
+            {{ getDescriptionErrorMessage() }}
+          </div>
+          <div *ngIf="!(descriptionControl.invalid && (descriptionControl.dirty || descriptionControl.touched))" class="error-placeholder"></div>
+        </div>
+      </div>
+      <div class="button-container">
+        <app-button 
+            [buttonText]="textButon" 
+            [disabled]="nameControl.invalid || descriptionControl.invalid || !descriptionControl.value" 
+            type="submit">
+        </app-button>
+      </div>
+    </form>
+  </div>
+</div>
